@@ -1,0 +1,502 @@
+[
+  {
+    "category": "banking",
+    "timing": "252ms",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "200ms",
+    "regex": ".*"
+  },
+  {
+    "category": "gaming",
+    "timing": "2s",
+    "regex": ".*"
+  },
+  {
+    "category": "banking",
+    "timing": "128ms",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "387ms",
+    "regex": ".*"
+  },
+  {
+    "category": "gaming",
+    "timing": "436ms",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "social",
+    "timing": "2s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "387ms",
+    "regex": ".*romance"
+  },
+  {
+    "category": "social",
+    "timing": "1s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "3s",
+    "regex": ".*social"
+  },
+  {
+    "category": "social",
+    "timing": "482ms",
+    "regex": ".*banking"
+  },
+  {
+    "category": "banking",
+    "timing": "2s",
+    "regex": ".*romance"
+  },
+  {
+    "category": "gaming",
+    "timing": "801ms",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "514ms",
+    "regex": ".*"
+  },
+  {
+    "category": "romance",
+    "timing": "504ms",
+    "regex": ".*banking"
+  },
+  {
+    "category": "shopping",
+    "timing": "494ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "banking",
+    "timing": "794ms",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "romance",
+    "timing": "3s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "gaming",
+    "timing": "234ms",
+    "regex": ".*"
+  },
+  {
+    "category": "romance",
+    "timing": "182ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "1s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "banking",
+    "timing": "3s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "social",
+    "timing": "965ms",
+    "regex": ".*"
+  },
+  {
+    "category": "romance",
+    "timing": "521ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "112ms",
+    "regex": ".*social"
+  },
+  {
+    "category": "shopping",
+    "timing": "706ms",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "2s",
+    "regex": ".*"
+  },
+  {
+    "category": "gaming",
+    "timing": "308ms",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "3s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "gaming",
+    "timing": "242ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "banking",
+    "timing": "441ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "romance",
+    "timing": "459ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "banking",
+    "timing": "1s",
+    "regex": ".*social"
+  },
+  {
+    "category": "banking",
+    "timing": "285ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "326ms",
+    "regex": ".*"
+  },
+  {
+    "category": "romance",
+    "timing": "2s",
+    "regex": ".*housing"
+  },
+  {
+    "category": "romance",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "3s",
+    "regex": ".*banking"
+  },
+  {
+    "category": "banking",
+    "timing": "476ms",
+    "regex": ".*housing"
+  },
+  {
+    "category": "housing",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "1s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "673ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "gaming",
+    "timing": "550ms",
+    "regex": ".*gaming"
+  },
+  {
+    "category": "shopping",
+    "timing": "3s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "3s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "3s",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "3s",
+    "regex": ".*housing"
+  },
+  {
+    "category": "housing",
+    "timing": "163ms",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "housing",
+    "timing": "2s",
+    "regex": ".*gaming"
+  },
+  {
+    "category": "romance",
+    "timing": "157ms",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "875ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "romance",
+    "timing": "1s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "social",
+    "timing": "559ms",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "gaming",
+    "timing": "1s",
+    "regex": ".*housing"
+  },
+  {
+    "category": "gaming",
+    "timing": "3s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "romance",
+    "timing": "359ms",
+    "regex": ".*social"
+  },
+  {
+    "category": "shopping",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "2s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "714ms",
+    "regex": ".*"
+  },
+  {
+    "category": "gaming",
+    "timing": "3s",
+    "regex": ".*banking"
+  },
+  {
+    "category": "housing",
+    "timing": "970ms",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "housing",
+    "timing": "263ms",
+    "regex": ".*housing"
+  },
+  {
+    "category": "housing",
+    "timing": "934ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "775ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "banking",
+    "timing": "3s",
+    "regex": ".*shopping"
+  },
+  {
+    "category": "social",
+    "timing": "750ms",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "284ms",
+    "regex": ".*social"
+  },
+  {
+    "category": "gaming",
+    "timing": "151ms",
+    "regex": ".*housing"
+  },
+  {
+    "category": "social",
+    "timing": "293ms",
+    "regex": ".*romance"
+  },
+  {
+    "category": "romance",
+    "timing": "2s",
+    "regex": ".*"
+  },
+  {
+    "category": "romance",
+    "timing": "2s",
+    "regex": ".*social"
+  },
+  {
+    "category": "banking",
+    "timing": "484ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "social",
+    "timing": "827ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "889ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "703ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "housing",
+    "timing": "3s",
+    "regex": ".*"
+  },
+  {
+    "category": "banking",
+    "timing": "908ms",
+    "regex": ".*banking"
+  },
+  {
+    "category": "shopping",
+    "timing": "250ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "gaming",
+    "timing": "656ms",
+    "regex": ".*social"
+  },
+  {
+    "category": "romance",
+    "timing": "1s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "628ms",
+    "regex": ".*"
+  },
+  {
+    "category": "banking",
+    "timing": "108ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "2s",
+    "regex": ".*banking"
+  },
+  {
+    "category": "banking",
+    "timing": "523ms",
+    "regex": ".*"
+  },
+  {
+    "category": "shopping",
+    "timing": "2s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "social",
+    "timing": "3s",
+    "regex": ".*"
+  },
+  {
+    "category": "housing",
+    "timing": "872ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "729ms",
+    "regex": ".*banking"
+  },
+  {
+    "category": "banking",
+    "timing": "774ms",
+    "regex": ".*romance"
+  },
+  {
+    "category": "housing",
+    "timing": "2s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "518ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "782ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "817ms",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "social",
+    "timing": "881ms",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "2s",
+    "regex": "[0-9]++"
+  },
+  {
+    "category": "shopping",
+    "timing": "2s",
+    "regex": ".*"
+  },
+  {
+    "category": "social",
+    "timing": "1s",
+    "regex": ".*shopping"
+  }
+]
