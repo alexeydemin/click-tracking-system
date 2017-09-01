@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'transactions'], function () {
+    Route::get('json/{userId}/{date}', 'TransactionController@json');
+    Route::get('html/{userId}/{date}', 'TransactionController@html');
+});
