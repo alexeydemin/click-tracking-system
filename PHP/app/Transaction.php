@@ -25,12 +25,12 @@ class Transaction extends Model
 
     public function getDebitAttribute()
     {
-        return ($this->user_type == 'PUB' ? $this->amount : 0)/1000;
+        return $this->formatCurrency($this->user_type == 'PUB' ? $this->amount : 0);
     }
 
     public function getCreditAttribute()
     {
-        return ($this->user_type == 'ADV' ? $this->amount : 0)/1000;
+        return $this->formatCurrency($this->user_type == 'ADV' ? $this->amount : 0);
     }
 
     public function getTimeAttribute()
@@ -46,7 +46,12 @@ class Transaction extends Model
             ->where('user_id', $this->user_id)
             ->sum('amount');
 
-        return ($dayBalance + $cumulativeBalance)/1000;
+        return $this->formatCurrency($dayBalance + $cumulativeBalance);
+    }
+
+    protected function formatCurrency($value)
+    {
+        return sprintf('$%s', number_format($value/1000/100, 2));
     }
 
 }
