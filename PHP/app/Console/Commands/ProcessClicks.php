@@ -21,7 +21,7 @@ class ProcessClicks extends Command
 
     public function handle(DayBalance $dayBalance)
     {
-        Click::where('id', '>', Transaction::max('click_id') )
+        Click::where('id', '>', (Transaction::max('click_id') ?? 0) )
             ->chunk(500, function($clicks) use ($dayBalance) {
             foreach($clicks as $click){
                 Transaction::create([
