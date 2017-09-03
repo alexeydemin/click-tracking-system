@@ -13,14 +13,20 @@
         <th>Balance</th>
         <th>Time</th>
     </tr>
-    @foreach($transactions as $transaction)
+@foreach($transactions as $transaction)
 <tr>
     <td>{{ $transaction->debit }}</td>
     <td>{{ $transaction->credit }}</td>
     <td>{{ $transaction->balance }}</td>
     <td>{{ $transaction->time }}</td>
 </tr>
-    @endforeach
+@endforeach
+<tr>
+    <th>{{ $totals->debit }}</th>
+    <th>{{ $totals->credit }}</th>
+    <td></td>
+    <td></td>
+</tr>
 </table>
 </body>
 </html>
