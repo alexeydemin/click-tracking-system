@@ -11,9 +11,9 @@ class CreateDayBalancesTable extends Migration
         Schema::create('day_balances', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('user_type')->nullable();
+            $table->string('user_type');
             $table->date('date');
-            $table->bigInteger('amount')->nullable();
+            $table->bigInteger('amount');
             $table->timestamps();
         });
     }
