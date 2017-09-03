@@ -4,7 +4,7 @@ namespace App\Transaction;
 
 class CreditPart extends TransactionPart
 {
-    const USER_TYPE = 'ADV';
+    const TRANSACTION_TYPE = 'CREDIT';
 
     public function __construct($click)
     {

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\AmountOutput;
+use App\Transaction\TransactionPart;
 use Illuminate\Database\Eloquent\Model;
 
 class DayBalance extends Model
@@ -30,7 +31,7 @@ class DayBalance extends Model
             'date'    => $part->date->format('Y-m-d'),
         ],  ['amount' => 0]);
         $dayBalance->amount += $part->amount;
-        $dayBalance->user_type = $part->user_type;
+        $dayBalance->transaction_type = $part->transaction_type;
         $dayBalance->save();
     }
 

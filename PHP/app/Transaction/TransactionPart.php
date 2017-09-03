@@ -4,14 +4,14 @@ namespace App\Transaction;
 
 abstract class TransactionPart
 {
-    const USER_TYPE = '';
+    const TRANSACTION_TYPE = '';
 
-    public $click_id, $user_type, $date, $user_id, $amount;
+    public $click_id, $transaction_type, $date, $user_id, $amount;
 
     public function __construct($click)
     {
         $this->click_id = $click->id;
-        $this->user_type = static::USER_TYPE;
+        $this->transaction_type = static::TRANSACTION_TYPE;
         $this->date = $click->created_at;
     }
 }

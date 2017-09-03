@@ -4,7 +4,7 @@ namespace App\Transaction;
 
 class DebitPart extends TransactionPart
 {
-    const USER_TYPE = 'PUB';
+    const TRANSACTION_TYPE = 'DEBIT';
 
     public function __construct($click)
     {

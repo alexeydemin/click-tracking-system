@@ -10,7 +10,7 @@ class Transaction extends Model
     use AmountOutput;
 
     protected $fillable = [
-        'click_id', 'user_id', 'user_type', 'amount', 'date'
+        'click_id', 'user_id', 'transaction_type', 'amount', 'date'
     ];
 
     protected $visible = [

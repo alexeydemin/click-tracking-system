@@ -12,7 +12,7 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('click_id');
             $table->integer('user_id');
-            $table->string('user_type');
+            $table->string('transaction_type');
             $table->integer('amount');
             $table->dateTime('date');
             $table->timestamps();

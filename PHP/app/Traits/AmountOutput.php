@@ -2,16 +2,19 @@
 
 namespace App\Traits;
 
+use App\Transaction\CreditPart;
+use App\Transaction\DebitPart;
+
 trait AmountOutput
 {
     protected function getDebitAttribute()
     {
-        return $this->formatCurrency($this->user_type == 'PUB' ? $this->amount : 0);
+        return $this->formatCurrency($this->transaction_type == DebitPart::TRANSACTION_TYPE ? $this->amount : 0);
     }
 
     protected function getCreditAttribute()
     {
-        return $this->formatCurrency($this->user_type == 'ADV' ? $this->amount : 0);
+        return $this->formatCurrency($this->transaction_type == CreditPart::TRANSACTION_TYPE ? $this->amount : 0);
     }
 
     protected function formatCurrency($value)
