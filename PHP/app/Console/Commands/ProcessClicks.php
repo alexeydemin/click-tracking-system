@@ -2,45 +2,33 @@
 
 namespace App\Console\Commands;
 
+use App\CreditPart;
 use App\Click;
 use App\DayBalance;
+use App\DebitPart;
 use App\Transaction;
 use Illuminate\Console\Command;
 
 class ProcessClicks extends Command
 {
+    const CHUNK_SIZE = 500;
 
     protected $signature = 'process:clicks';
 
     protected $description = 'Save transactions and calculate daily balances';
 
-    public function __construct()
+    public function handle()
     {
-        parent::__construct();
-    }
-
-    public function handle(DayBalance $dayBalance)
-    {
-        Click::where('id', '>', (Transaction::max('click_id') ?? 0) )
-            ->chunk(500, function($clicks) use ($dayBalance) {
+        $lastHandledId = Transaction::max('click_id') ?? 0;
+        Click::where('id', '>', $lastHandledId )
+            ->chunk(self::CHUNK_SIZE, function($clicks){
             foreach($clicks as $click){
-                Transaction::create([
-                    'click_id' => $click->id,
-                    'user_id' => $click->folder->user_id,
-                    'user_type' => 'ADV',
-                    'amount' => $click->folder_cost,
-                    'date' => $click->created_at
-                ]);
-                Transaction::create([
-                    'click_id' => $click->id,
-                    'user_id' => $click->placement->user_id,
-                    'user_type' => 'PUB',
-                    'amount' => $click->placement_payout,
-                    'date' => $click->created_at
-                ]);
-
-                $dayBalance->incrementAdvertiserBalance($click);
-                $dayBalance->incrementPublisherBalance($click);
+                $debitPart = new DebitPart($click);
+                $creditPart = new CreditPart($click);
+                Transaction::create((array) $debitPart);
+                Transaction::create((array) $creditPart);
+                DayBalance::incrementAmount($debitPart);
+                DayBalance::incrementAmount($creditPart);
             }
         });
     }

@@ -23,32 +23,14 @@ class DayBalance extends Model
         'debit', 'credit'
     ];
 
-    public function incrementAdvertiserBalance(Click $click)
+    public static function incrementAmount(TransactionPart $part)
     {
-        $dayBalance = self::firstOrCreate([
-                'user_id' => $click->folder->user_id,
-                'date' =>$click->created_at->format('Y-m-d'),
-            ], [
-
-                'amount' => 0
-            ]
-        );
-        $dayBalance->amount += $click->folder_cost;
-        $dayBalance->user_type = 'ADV';
-        $dayBalance->save();
-    }
-
-    public function incrementPublisherBalance(Click $click)
-    {
-        $dayBalance = self::firstOrCreate([
-                'user_id' => $click->placement->user_id,
-                'date' =>$click->created_at->format('Y-m-d'),
-            ],  [
-                'amount' => 0
-            ]
-        );
-        $dayBalance->amount += $click->placement_payout;
-        $dayBalance->user_type = 'PUB';
+        $dayBalance = self::firstOrNew([
+            'user_id' => $part->user_id,
+            'date'    => $part->date->format('Y-m-d'),
+        ],  ['amount' => 0]);
+        $dayBalance->amount += $part->amount;
+        $dayBalance->user_type = $part->user_type;
         $dayBalance->save();
     }
 
