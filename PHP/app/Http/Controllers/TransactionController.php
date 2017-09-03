@@ -26,7 +26,7 @@ class TransactionController extends Controller
     {
         return response()->json([
             'transactions' => $this->transactions,
-            'totals' => $this->totals
+            'totals' => $this->totals ?? ''
         ]);
     }
 

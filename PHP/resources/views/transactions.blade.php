@@ -22,8 +22,8 @@
 </tr>
 @endforeach
 <tr>
-    <th>{{ $totals->debit }}</th>
-    <th>{{ $totals->credit }}</th>
+    <th>{{ $totals->debit or '' }}</th>
+    <th>{{ $totals->credit or '' }}</th>
     <td></td>
     <td></td>
 </tr>
