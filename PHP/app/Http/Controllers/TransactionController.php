@@ -3,22 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Transaction;
+use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function json($userId, $date)
+    protected $transactions;
+
+    public function __construct(Request $request)
     {
-        $transactions = Transaction::where('user_id', $userId)
-            ->whereDate('date', $date)
+        $this->transactions = Transaction::where('user_id', $request->userId)
+            ->whereDate('date', $request->date)
             ->orderBy('date')
             ->get();
-
-
-        return response()->json($transactions, 200);
     }
 
-    public function html($userId, $date)
+    public function json()
     {
-        echo "html: $userId, $date";
+        return response()->json($this->transactions);
+    }
+
+    public function html()
+    {
+        return view('transactions', ['transactions' => $this->transactions]);
     }
 }
