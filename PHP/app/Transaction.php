@@ -2,12 +2,12 @@
 
 namespace App;
 
-use App\Traits\TransactionType;
+use App\Traits\AmountOutput;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    use TransactionType;
+    use AmountOutput;
 
     protected $fillable = [
         'click_id', 'user_id', 'user_type', 'amount', 'date'

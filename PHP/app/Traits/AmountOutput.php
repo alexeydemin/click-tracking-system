@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-trait TransactionType
+trait AmountOutput
 {
     protected function getDebitAttribute()
     {

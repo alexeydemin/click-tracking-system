@@ -2,12 +2,12 @@
 
 namespace App;
 
-use App\Traits\TransactionType;
+use App\Traits\AmountOutput;
 use Illuminate\Database\Eloquent\Model;
 
 class DayBalance extends Model
 {
-    use TransactionType;
+    use AmountOutput;
 
     protected $fillable = [
         'user_id', 'date', 'amount',
