@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Transaction;
 
 class CreditPart extends TransactionPart
 {

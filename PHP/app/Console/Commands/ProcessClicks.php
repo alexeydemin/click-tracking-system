@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\CreditPart;
+use App\Transaction\CreditPart;
 use App\Click;
 use App\DayBalance;
-use App\DebitPart;
+use App\Transaction\DebitPart;
 use App\Transaction;
 use Illuminate\Console\Command;
 
