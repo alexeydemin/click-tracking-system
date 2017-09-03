@@ -15,6 +15,9 @@ class CreateDayBalancesTable extends Migration
             $table->date('date');
             $table->bigInteger('amount');
             $table->timestamps();
+
+            $table->index('date');
+            $table->index('user_id');
         });
     }
 
