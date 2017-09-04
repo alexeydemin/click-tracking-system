@@ -1,0 +1,32 @@
+The design is fairly simple.
+1. Clicks data is processing by cron.
+You may need to add
+
+* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+
+entry to the crontab as mentioned here https://laravel.com/docs/5.4/scheduling#introduction
+
+or simply run in console
+
+php artisan process:clicks
+
+Cron job assumed to be launched every 5 minutes.
+
+2. It fills transactions and updates day_balances tables.
+The first one keeps information about transactions and the second one the day balances by the end of each day.
+In order to get the balance amount, at the moment of an API call it calculates 2 terms:
+1) The summary of all balances of previous days for the requested day.
+2) For each transaction the summary of all previous transactions on that day.
+
+3. Since a click datum may come for any day we cannot rely on ID when we calculate (2).
+The only param we can use to sort transactions is the time of click. This approach has a drawback.
+If there is more than one click with the same time of click (for the same user) we cannot assign the correct balance value for them.
+In the real system, it is suggested to keep time with milliseconds in clicks table.
+For the purposes of this task, each time appended with random amount of milliseconds in order to increase entropy
+and decrease the probability of 2 coinciding times.
+
+4. Another issue is a mismatch of total amount and the sum of transactions
+due to the round-off error caused by non-random nature of click's cost.
+The biggest difference for given data set revealed by tests is 1.5% ($3.84 vs $3.9).
+To avoid this we can use one of the apportionment methods, e.g. https://en.wikipedia.org/wiki/Largest_remainder_method
+Please, let me know if this task implies the implementation of this rounding.
