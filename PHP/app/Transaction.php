@@ -21,19 +21,16 @@ class Transaction extends Model
         'debit', 'credit', 'balance', 'time'
     ];
 
-    protected $dates = [
-        'date'
-    ];
-
     protected function getTimeAttribute()
     {
-        return $this->date->format('H:i:s');
+        return (new \DateTime($this->date))->format('H:i:s');
     }
 
     protected function getBalanceAttribute()
     {
-        $dayBalance = (new DayBalance)->getPreviousDaysBalance($this->user_id, $this->date->format('Y-m-d'));
-        $cumulativeBalance = self::whereDate('date', $this->date->format('Y-m-d'))
+        $dateOnly = (new \DateTime($this->date))->format('Y-m-d');
+        $dayBalance = (new DayBalance)->getPreviousDaysBalance($this->user_id, $dateOnly);
+        $cumulativeBalance = self::whereDate('date', $dateOnly)
             ->where('date', '<=', $this->date)
             ->where('user_id', $this->user_id)
             ->sum('amount');

@@ -25,11 +25,22 @@ class ProcessClicks extends Command
             foreach($clicks as $click){
                 $debitPart = new DebitPart($click);
                 $creditPart = new CreditPart($click);
-                Transaction::create((array) $debitPart);
-                Transaction::create((array) $creditPart);
+
                 DayBalance::incrementAmount($debitPart);
                 DayBalance::incrementAmount($creditPart);
+
+                self::addMilliseconds($debitPart);
+                self::addMilliseconds($creditPart);
+
+                Transaction::create((array) $debitPart);
+                Transaction::create((array) $creditPart);
+
             }
         });
+    }
+
+    protected static function addMilliseconds($transactionPart)
+    {
+        $transactionPart->date = $transactionPart->date->format('Y-m-d H:i:s') . '.' . mt_rand(0, 999);
     }
 }
