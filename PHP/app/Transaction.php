@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\AmountOutput;
+use App\Transaction\TransactionCollection;
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
@@ -18,7 +19,7 @@ class Transaction extends Model
     ];
 
     protected $appends = [
-        'debit', 'credit', 'balance', 'time'
+        'debit', 'credit', 'time'
     ];
 
     protected function getTimeAttribute()
@@ -26,16 +27,9 @@ class Transaction extends Model
         return (new \DateTime($this->date))->format('H:i:s');
     }
 
-    protected function getBalanceAttribute()
+    public function newCollection(array $models = [])
     {
-        $dateOnly = (new \DateTime($this->date))->format('Y-m-d');
-        $dayBalance = (new DayBalance)->getPreviousDaysBalance($this->user_id, $dateOnly);
-        $cumulativeBalance = self::whereDate('date', $dateOnly)
-            ->where('date', '<=', $this->date)
-            ->where('user_id', $this->user_id)
-            ->sum('amount');
-
-        return $this->formatCurrency($dayBalance + $cumulativeBalance);
+        return new TransactionCollection($models);
     }
 
 }

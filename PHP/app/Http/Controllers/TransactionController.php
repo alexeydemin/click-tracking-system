@@ -17,6 +17,8 @@ class TransactionController extends Controller
             ->whereDate('date', $request->date)
             ->orderBy('date')
             ->get();
+        $this->transactions->appendBalance($request->userId, $request->date);
+
         $this->totals = DayBalance::where('user_id', $request->userId)
             ->whereDate('date', $request->date)
             ->first();
