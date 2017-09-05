@@ -1,4 +1,5 @@
 The design is fairly simple.
+
 1. Clicks data is processing by cron.
 You may need to add
 
@@ -14,19 +15,16 @@ Cron job assumed to be launched every 5 minutes.
 
 2. It fills transactions and updates day_balances tables.
 The first one keeps information about transactions and the second one the day balances by the end of each day.
-In order to get the balance amount, at the moment of an API call it calculates 2 terms:
-1) The summary of all balances of previous days for the requested day.
-2) For each transaction the summary of all previous transactions on that day.
 
-3. Since a click datum may come for any day we cannot rely on ID when we calculate (2).
-The only param we can use to sort transactions is the time of click. This approach has a drawback.
-If there is more than one click with the same time of click (for the same user) we cannot assign the correct balance value for them.
-In the real system, it is suggested to keep time with milliseconds in clicks table.
-For the purposes of this task, each time appended with random amount of milliseconds in order to increase entropy
-and decrease the probability of 2 coinciding times.
+In order to calculate the balance amount of every transaction, at the moment of an API call it sums these 3 summands:
+1) The sum of all balances of previous days for the requested day.
+2) The sum of all previous transactions for the given one on that day.
+3) The amount of the given transaction.
 
-4. Another issue is a mismatch of total amount and the sum of transactions
-due to the round-off error caused by non-random nature of click's cost.
-The biggest difference for given data set revealed by tests is 1.5% ($3.84 vs $3.9).
+3. There is an issue with a mismatch of the total amount and the sum of transactions due to the round-off error caused by non-random nature of click's cost.
+Every transaction rounded according to the rounding rules however the total amount calculated from rounded values differs significantly
+from the one calculated from raw values and after that rounded.
+The biggest difference for given dataset revealed by tests is 1.5% ($3.84 vs $3.9).
+Obviously displaying in the total row a sum of rounded values cannot be considered as a satisfactory solution.
 To avoid this we can use one of the apportionment methods, e.g. https://en.wikipedia.org/wiki/Largest_remainder_method
 Please, let me know if this task implies the implementation of this rounding.
