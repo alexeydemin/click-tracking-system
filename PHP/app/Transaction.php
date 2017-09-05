@@ -14,6 +14,10 @@ class Transaction extends Model
         'click_id', 'user_id', 'transaction_type', 'amount', 'date'
     ];
 
+    protected $dates = [
+        'date'
+    ];
+
     protected $visible = [
         'debit', 'credit', 'balance', 'time'
     ];
@@ -24,7 +28,7 @@ class Transaction extends Model
 
     protected function getTimeAttribute()
     {
-        return (new \DateTime($this->date))->format('H:i:s');
+        return $this->date->format('H:i:s');
     }
 
     public function newCollection(array $models = [])
