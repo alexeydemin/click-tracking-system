@@ -9,6 +9,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BalancesTest extends TestCase
 {
+    const ALMOST_ZERO = 0.00001;
+
     protected $period, $userIds, $part, $content;
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -19,9 +21,41 @@ class BalancesTest extends TestCase
         $this->userIds = range(1, 4);
     }
 
+    public function testCheckBalanceBetweenTransactions()
+    {
+        echo "\n______________________1____________________";
+        foreach($this->userIds as $userId) {
+            foreach ($this->period as $date) {
+                $this->detectTransactionsType($userId, $date);
+                foreach ($this->content['transactions'] as $key => $transaction) {
+                    if(!isset($this->content['transactions'][$key-1])){
+                        continue;
+                    }
+                    $debit = rmSign($transaction[$this->part]);
+                    $balance = rmSign($transaction['balance']);
+                    $balancePrev = rmSign($this->content['transactions'][$key-1]['balance']);
+                    $diff = round(abs($balancePrev + $debit - $balance), 5);
+                    $passed = ($diff <= self::ALMOST_ZERO);
+                    $key = sprintf("%2s", $key);
+                    $debit = sprintf("%4s", $debit);
+                    $balancePrev = sprintf("%6s", $balancePrev);
+                    $balance = sprintf("%6s", $balance);
+                    echo "\n[$userId][$date][$key] $debit + $balancePrev = $balance | $diff" . ( !$passed ? '     [!]' : '');
+
+                    $this->assertTrue( $passed );
+                }
+
+                $this->refreshApplication();
+
+            }
+        }
+    }
+
+
+
     public function testCheckSumsInsideDay()
     {
-
+        echo "\n______________________2____________________";
         foreach($this->userIds as $userId) {
             foreach ($this->period as $date) {
                 $this->detectTransactionsType($userId, $date);
@@ -31,9 +65,11 @@ class BalancesTest extends TestCase
                     $totalDebitCalculated += rmSign($transaction[$this->part]);
                 }
 
-                $observationalError = abs($totalDebitJSON - $totalDebitCalculated) / $totalDebitCalculated * 100;
-                echo "\n[$userId][$date][$totalDebitJSON - $totalDebitCalculated] -- " . round($observationalError, 3) . '%';
-                $this->assertTrue($observationalError < 2);
+
+                $error = abs($totalDebitJSON - $totalDebitCalculated);
+                $passed = $error <= self::ALMOST_ZERO;
+                echo "\n[$userId][$date][$totalDebitJSON - $totalDebitCalculated] -- " . round($error, 5)  . ( !$passed ? '     [!]' : '');
+                $this->assertTrue($passed);
                 $this->refreshApplication();
             }
         }
@@ -41,6 +77,7 @@ class BalancesTest extends TestCase
 
     public function testCheckSumsBetweenDays()
     {
+        echo "\n______________________3____________________";
         foreach($this->userIds as $userId) {
             foreach ($this->period as $key => $date) {
                 if(empty($this->period[$key+1])){
@@ -52,40 +89,22 @@ class BalancesTest extends TestCase
                 $debit = rmSign($this->content['transactions'][0][$this->part]);
                 $balance = rmSign($this->content['transactions'][0]['balance']);
 
-                $diff = abs($balancePrev + $debit - $balance);
+                $diff = round(abs($balancePrev + $debit - $balance), 10);
+
+                $key = sprintf("%2s", $key);
+                $debit = sprintf("%4s", $debit);
+                $balancePrev = sprintf("%6s", $balancePrev);
+                $balance = sprintf("%6s", $balance);
+
                 echo "\n[$userId][$date][$key] $debit + $balancePrev = $balance | $diff";
-                $this->assertTrue($diff <= 0.011);
+                $this->assertTrue($diff <= 0.01);
 
                 $this->refreshApplication();
             }
         }
     }
 
-    public function testCheckBalanceBetweenTransactions()
-    {
 
-        foreach($this->userIds as $userId) {
-            foreach ($this->period as $date) {
-                $this->detectTransactionsType($userId, $date);
-                foreach ($this->content['transactions'] as $key => $transaction) {
-                    if(!isset($this->content['transactions'][$key-1])){
-                        continue;
-                    }
-                    $debit = rmSign($transaction[$this->part]);
-                    $balance = rmSign($transaction['balance']);
-                    $balancePrev = rmSign($this->content['transactions'][$key-1]['balance']);
-                    $diff = abs($balancePrev + $debit - $balance);
-                    echo "\n[$userId][$date][$key] $debit + $balancePrev = $balance | $diff";
-                    $this->assertTrue($diff <= 0.011);
-                }
-
-                $this->refreshApplication();
-
-            }
-        }
-
-        echo "\n\n";
-    }
 
     protected function createDateRange($startDate, $endDate, $format = "Y-m-d")
     {

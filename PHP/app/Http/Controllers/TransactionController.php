@@ -13,14 +13,17 @@ class TransactionController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->transactions = Transaction::where('user_id', $request->userId)
-            ->whereDate('date', $request->date)
+        $userId = $request->userId;
+        $date = $request->date;
+        $this->transactions = Transaction::where('user_id', $userId)
+            ->whereDate('date', $date)
             ->orderBy('date')
-            ->get();
-        $this->transactions->appendBalance($request->userId, $request->date);
-
-        $this->totals = DayBalance::where('user_id', $request->userId)
-            ->whereDate('date', $request->date)
+            ->get()
+            ->round($userId, $date)
+            ->appendBalance($userId, $date)
+            ->formatBalance();
+        $this->totals = DayBalance::where('user_id', $userId)
+            ->whereDate('date', $date)
             ->first();
     }
 

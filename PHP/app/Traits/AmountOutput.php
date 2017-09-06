@@ -19,7 +19,7 @@ trait AmountOutput
 
     public function formatCurrency($value)
     {
-        return sprintf('$%s', number_format($value/1000/100, 2));
+        return sprintf('$%s', floor($value/1000) /100 );
     }
 
 }

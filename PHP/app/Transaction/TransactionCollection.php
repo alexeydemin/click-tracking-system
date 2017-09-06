@@ -2,7 +2,7 @@
 
 namespace App\Transaction;
 
-use App\DayBalance;
+use App\DayBalance;;
 use Illuminate\Database\Eloquent\Collection;
 
 class TransactionCollection extends Collection
@@ -14,7 +14,30 @@ class TransactionCollection extends Collection
         foreach($this as $transaction){
             $transaction->balance = $previousDaysBalance + $currentDaySum + $transaction->amount;
             $currentDaySum += $transaction->amount;
-            $transaction->balance = $transaction->formatCurrency($transaction->balance);
         }
+
+        return $this;
+    }
+
+    public function round()
+    {
+        $diff = 0;
+        foreach( $this as $transaction){
+            $amount = $transaction->amount + $diff;
+            $amountRounded = floor($amount/1000)*1000;
+            $diff = $amount - $amountRounded;
+            $transaction->amount = $amountRounded;
+        }
+
+        return $this;
+    }
+
+    public function formatBalance()
+    {
+        $this->each(function($item) {
+            $item->balance = $item->formatCurrency($item->balance);
+        });
+
+        return $this;
     }
 }
