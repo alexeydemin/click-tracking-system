@@ -21,10 +21,4 @@ In order to calculate the balance amount of every transaction, at the moment of 
 2) The sum of all previous transactions for the given one on that day.
 3) The amount of the given transaction.
 
-3. There is an issue with a mismatch of the total amount and the sum of transactions due to the round-off error caused by non-random nature of click's cost.
-Every transaction rounded according to the rounding rules however the total amount calculated from rounded values differs significantly
-from the one calculated from raw values and after that rounded.
-The biggest difference for given dataset revealed by tests is 1.5% ($3.84 vs $3.9).
-Obviously displaying in the total row a sum of rounded values cannot be considered as a satisfactory solution.
-To avoid this we can use one of the apportionment methods, e.g. https://en.wikipedia.org/wiki/Largest_remainder_method
-Please, let me know if this task implies the implementation of this rounding.
+3. Rounding

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\DayBalance;
-use App\Transaction;
 use Illuminate\Http\Request;
+use App\Transaction\TransactionCollection;
 
 class TransactionController extends Controller
 {
@@ -13,18 +12,8 @@ class TransactionController extends Controller
 
     public function __construct(Request $request)
     {
-        $userId = $request->userId;
-        $date = $request->date;
-        $this->transactions = Transaction::where('user_id', $userId)
-            ->whereDate('date', $date)
-            ->orderBy('date')
-            ->get()
-            ->round($userId, $date)
-            ->appendBalance($userId, $date)
-            ->formatBalance();
-        $this->totals = DayBalance::where('user_id', $userId)
-            ->whereDate('date', $date)
-            ->first();
+        $this->transactions = TransactionCollection::getFormatted($request->userId, $request->date);
+        $this->totals = $this->transactions->getTotalsRow();
     }
 
     public function json()

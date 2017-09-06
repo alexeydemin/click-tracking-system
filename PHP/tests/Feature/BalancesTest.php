@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BalancesTest extends TestCase
 {
-    const ALMOST_ZERO = 0.00001;
+    const ALMOST_ZERO = 0.00000001;
 
     protected $period, $userIds, $part, $content;
 
@@ -23,7 +23,7 @@ class BalancesTest extends TestCase
 
     public function testCheckBalanceBetweenTransactions()
     {
-        echo "\n______________________1____________________";
+        echo "\n\n______________________1____________________";
         foreach($this->userIds as $userId) {
             foreach ($this->period as $date) {
                 $this->detectTransactionsType($userId, $date);
@@ -55,7 +55,7 @@ class BalancesTest extends TestCase
 
     public function testCheckSumsInsideDay()
     {
-        echo "\n______________________2____________________";
+        echo "\n\n______________________2____________________";
         foreach($this->userIds as $userId) {
             foreach ($this->period as $date) {
                 $this->detectTransactionsType($userId, $date);
@@ -65,10 +65,13 @@ class BalancesTest extends TestCase
                     $totalDebitCalculated += rmSign($transaction[$this->part]);
                 }
 
-
                 $error = abs($totalDebitJSON - $totalDebitCalculated);
                 $passed = $error <= self::ALMOST_ZERO;
-                echo "\n[$userId][$date][$totalDebitJSON - $totalDebitCalculated] -- " . round($error, 5)  . ( !$passed ? '     [!]' : '');
+
+                $totalDebitJSON = sprintf("%6s", $totalDebitJSON);
+                $totalDebitCalculated = sprintf("%6s", $totalDebitCalculated);
+
+                echo "\n[$userId][$date]$totalDebitJSON - $totalDebitCalculated | " . round($error, 5)  . ( !$passed ? '     [!]' : '');
                 $this->assertTrue($passed);
                 $this->refreshApplication();
             }
@@ -77,7 +80,7 @@ class BalancesTest extends TestCase
 
     public function testCheckSumsBetweenDays()
     {
-        echo "\n______________________3____________________";
+        echo "\n\n______________________3____________________";
         foreach($this->userIds as $userId) {
             foreach ($this->period as $key => $date) {
                 if(empty($this->period[$key+1])){
@@ -97,7 +100,7 @@ class BalancesTest extends TestCase
                 $balance = sprintf("%6s", $balance);
 
                 echo "\n[$userId][$date][$key] $debit + $balancePrev = $balance | $diff";
-                $this->assertTrue($diff <= 0.01);
+                $this->assertTrue($diff <= self::ALMOST_ZERO);
 
                 $this->refreshApplication();
             }
