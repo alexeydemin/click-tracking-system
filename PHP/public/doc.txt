@@ -22,3 +22,10 @@ In order to calculate the balance amount of every transaction, at the moment of 
 3) The amount of the given transaction.
 
 3. Rounding
+All rounding operations happen at the moment of a page request.
+1. Every single transaction rounds down and then the drop are going to the next transaction.
+2. For the drop coming from the previous day I:
+1) Calculate the last balance amount for this day.
+2) Calculate the difference between rounded balance and the real one.
+3) Perform new calculation considering this difference.
+
