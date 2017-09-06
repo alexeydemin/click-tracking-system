@@ -4,11 +4,13 @@ namespace App\Transaction;
 
 use App\DayBalance;
 use App\Totals;
+use App\Traits\Replicate;
 use App\Transaction;
 use Illuminate\Database\Eloquent\Collection;
 
 class TransactionCollection extends Collection
 {
+    use Replicate;
 
     public function appendBalance($userId, $date)
     {
@@ -42,7 +44,7 @@ class TransactionCollection extends Collection
         });
     }
 
-    function getTotalsRow()
+    public function getTotalsRow()
     {
         $row = new Totals;
         $row->transaction_type = $this[0]['transaction_type'];
@@ -64,13 +66,4 @@ class TransactionCollection extends Collection
         return $transactions2->round($diff)->appendBalance($userId, $date)->formatBalance();
     }
 
-    protected function replicate()
-    {
-        $newCollection = new $this;
-        foreach ($this as $item) {
-            $newCollection->push(clone $item);
-        }
-
-        return $newCollection;
-    }
 }
