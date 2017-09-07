@@ -12,13 +12,11 @@ class TransactionCollection extends Collection
 {
     use Replicate;
 
-    public function appendBalance($userId, $date)
+    public function appendBalance(int $balance)
     {
-        $previousDaysBalance = (new DayBalance)->getPreviousDaysBalance($userId,  $date);
         $currentDaySum = 0;
-
         foreach($this as $transaction){
-            $transaction->balance = $previousDaysBalance + $currentDaySum + $transaction->amount;
+            $transaction->balance = $balance + $currentDaySum + $transaction->amount;
             $currentDaySum += $transaction->amount;
         }
 
@@ -55,15 +53,16 @@ class TransactionCollection extends Collection
 
     public static function getFormatted($userId, $date)
     {
+        $balance = (new DayBalance)->getPreviousDaysBalance($userId,  $date);
         $transactions = Transaction::where('user_id', $userId)
             ->whereDate('date', $date)
             ->orderBy('date')
             ->get();
         $transactions2 = $transactions->replicate();
-        $lastBalance = $transactions->round()->appendBalance($userId, $date)->last()->balance;
+        $lastBalance = $transactions->round()->appendBalance($balance)->last()->balance;
         $diff = $lastBalance - floor($lastBalance/1000)*1000;
 
-        return $transactions2->round($diff)->appendBalance($userId, $date)->formatBalance();
+        return $transactions2->round($diff)->appendBalance($balance)->formatBalance();
     }
 
 }
