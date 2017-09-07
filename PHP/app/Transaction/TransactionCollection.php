@@ -16,8 +16,8 @@ class TransactionCollection extends Collection
     {
         $currentDaySum = 0;
         foreach($this as $transaction){
-            $transaction->balance = $balance + $currentDaySum + $transaction->amount;
             $currentDaySum += $transaction->amount;
+            $transaction->balance = $balance + $currentDaySum;
         }
 
         return $this;
