@@ -45,6 +45,9 @@ class TransactionCollection extends Collection
     public function getTotalsRow()
     {
         $row = new Totals;
+        if(! $this->count()){
+            return $row;
+        }
         $row->transaction_type = $this[0]['transaction_type'];
         $row->amount = $this->pluck('amount')->sum();
 
@@ -58,6 +61,9 @@ class TransactionCollection extends Collection
             ->whereDate('date', $date)
             ->orderBy('date')
             ->get();
+        if(! $transactions->count()){
+            return new self;
+        }
         $transactions2 = $transactions->replicate();
         $lastBalance = $transactions->round()->appendBalance($balance)->last()->balance;
         $diff = $lastBalance - floor($lastBalance/1000)*1000;
